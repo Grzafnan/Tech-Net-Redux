@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Sheet,
   SheetContent,
@@ -13,11 +14,26 @@ import {
 } from 'react-icons/hi';
 import { Button } from './ui/button';
 import { IProduct } from '@/types/globalTypes';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { addToCart, removeFromCart, removeOne } from '@/redux/features/cart/cartSlice';
 
 export default function Cart() {
-  //! Dummy data
+  const {products} = useAppSelector((state)=> state.cart)
+  const dispatch = useAppDispatch();
 
-  const products: IProduct[] = [];
+  const handleAddToCart = (product: IProduct)=>{
+    dispatch(addToCart(product));
+  }
+
+  const handleDecreaseAndDelete = (product: IProduct)=>{
+    dispatch(removeOne(product));
+  };
+
+  const handleRemoveFromCart = (product: IProduct)=>{
+    dispatch(removeFromCart(product));
+  }
+
+  //! Dummy data
   const total = 0;
 
   //! **
@@ -52,13 +68,16 @@ export default function Cart() {
                 </p>
               </div>
               <div className="border-l pl-5 flex flex-col justify-between">
-                <Button>
+                <Button onClick={()=> handleAddToCart(product)}>
                   <HiOutlinePlus size="20" />
                 </Button>
-                <Button>
+                <Button 
+                onClick={()=> handleDecreaseAndDelete(product)}
+                >
                   <HiMinus size="20" />
                 </Button>
                 <Button
+                onClick={()=> handleRemoveFromCart(product)}
                   variant="destructive"
                   className="bg-red-500 hover:bg-red-400"
                 >
