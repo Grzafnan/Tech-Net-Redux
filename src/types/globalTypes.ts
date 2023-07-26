@@ -1,5 +1,5 @@
 export interface IProduct {
-  _id: number;
+  _id: string;
   name: string;
   image: string;
   price: number;
@@ -7,4 +7,5 @@ export interface IProduct {
   status: boolean;
   rating: number;
   quantity?: number;
+  comments?: string[];
 }
