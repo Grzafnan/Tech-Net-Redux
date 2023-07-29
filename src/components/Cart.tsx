@@ -21,6 +21,7 @@ export default function Cart() {
   const {products, total} = useAppSelector((state)=> state.cart)
   const dispatch = useAppDispatch();
 
+
   const handleAddToCart = (product: IProduct)=>{
     dispatch(addToCart(product));
   }
@@ -48,10 +49,10 @@ export default function Cart() {
           <h1>Total: {total.toFixed(2)}</h1>
         </SheetHeader>
         <div className="space-y-5">
-          {products.map((product) => (
+          {products?.map((product) => (
             <div
               className="border h-44 p-5 flex justify-between rounded-md"
-              key={product.name}
+              key={product._id}
             >
               <div className="border-r pr-5 shrink-0">
                 <img src={product?.image} alt="" className="h-full" />

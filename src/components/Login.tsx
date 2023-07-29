@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -8,27 +6,23 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { useAppDispatch } from '@/redux/hooks';
-import { createUser } from '@/redux/features/user/userSlice';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
-interface SignupFormInputs {
+interface LoginFormInputs {
   email: string;
   password: string;
 }
 
-export function SignupForm({ className, ...props }: UserAuthFormProps) {
+export function Login({ className, ...props }: UserAuthFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormInputs>();
+  } = useForm<LoginFormInputs>();
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit = (data: SignupFormInputs) => {
-    dispatch(createUser({email: data.email, password: data.password}))
+  const onSubmit = (data: LoginFormInputs) => {
+    console.log(data);
   };
 
   return (
@@ -54,19 +48,12 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
               placeholder="your password"
               type="password"
               autoCapitalize="none"
-              autoCorrect="off"
+              autoComplete="password"
               {...register('password', { required: 'Password is required' })}
             />
             {errors.password && <p>{errors.password.message}</p>}
-            <Input
-              id="password"
-              placeholder="confirm password"
-              type="password"
-              autoCapitalize="none"
-              autoCorrect="off"
-            />
           </div>
-          <Button>Create Account</Button>
+          <Button>Login with email</Button>
         </div>
       </form>
       <div className="relative">
